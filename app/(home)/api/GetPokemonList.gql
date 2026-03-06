@@ -1,0 +1,9 @@
+query GetPokemonList {
+  pokemons: pokemon(
+    order_by: {id: asc}
+    limit: 10
+
+  ) {
+      ...BasePokemon
+  }
+}

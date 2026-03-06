@@ -1,31 +1,31 @@
-/** Типы по структуре PokeAPI (pokemon endpoint) */
-export interface PokemonApi {
-  id: number;
-  name: string;
-  types: {
-    slot: number;
-    type: { name: string; url: string };
-  }[];
-  abilities: {
-    ability: { name: string; url: string };
-    is_hidden: boolean;
-    slot: number;
-  }[];
-  stats: {
-    base_stat: number;
-    effort: number;
-    stat: { name: string; url: string };
-  }[];
-  sprites: {
-    front_default: string | null;
-    back_default: string | null;
-    front_shiny: string | null;
-    back_shiny: string | null;
-  };
-}
+import createApolloClient from "@/appolo-client";
+import {
+	GetPokemonDocument,
+	type GetPokemonQuery,
+} from "./GetPokemon.generated";
+
+export type PokemonApi = GetPokemonQuery["pokemon"][number] & {
+  // TODO: create normalizer for sprites
+  sprites: Array<{
+    sprites: {
+      front_default: string | null;
+      back_default: string | null;
+      front_shiny: string | null;
+      back_shiny: string | null;
+    }
+  }>
+};
 
 export async function fetchPokemon(pokemonID: string): Promise<PokemonApi> {
-	const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonID}`);
-	const data: PokemonApi = await response.json();
-	return data;
+	const client = createApolloClient();
+	const id = parseInt(pokemonID, 10);
+	if (Number.isNaN(id)) throw new Error("Invalid pokemon ID");
+	const { data } = await client.query<GetPokemonQuery>({
+		query: GetPokemonDocument,
+		variables: { id },
+	});
+	const pokemon = data?.pokemon?.[0];
+	if (!pokemon) throw new Error("Pokemon not found");
+
+	return pokemon as PokemonApi;
 }

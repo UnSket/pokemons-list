@@ -1,0 +1,22 @@
+query GetPokemon($id: Int!) {
+  pokemon: pokemon(
+    where:  {
+       id: {
+        _eq: $id
+       }
+    }
+  ) {
+      ...BasePokemon
+      stats: pokemonstats {
+        base_stat
+        stat {
+          name
+        }
+      }
+      abilities: pokemonabilities {
+        ability {
+          name
+        }
+      }
+  }
+}

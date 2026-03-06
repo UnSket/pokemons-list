@@ -2,7 +2,7 @@ import { fetchPokemonList } from "./api/fetchPokemonList";
 import { PokemonListCard } from "./components/PokemonListCard";
 
 export default async function Home() {
-	const { results } = await fetchPokemonList();
+	const list = await fetchPokemonList();
 
 	return (
 		<div className="min-h-screen bg-zinc-50 font-sans dark:bg-zinc-950">
@@ -11,7 +11,7 @@ export default async function Home() {
 					Покемоны
 				</h1>
 				<ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-					{results.map((pokemon) => (
+					{list.map((pokemon) => (
 						<li key={pokemon.id}>
 							<PokemonListCard pokemon={pokemon} />
 						</li>

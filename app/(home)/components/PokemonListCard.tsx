@@ -1,16 +1,18 @@
-import type { Pokemon } from "../api/fetchPokemonList";
 import Image from "next/image";
 import Link from "next/link";
+import { PokemonListItem } from "../api/fetchPokemonList";
 
 interface PokemonListCardProps {
-	pokemon: Pokemon;
+	pokemon: PokemonListItem;
 }
 
 export function PokemonListCard({ pokemon }: PokemonListCardProps) {
 	const imageUrl =
-		pokemon.sprites.front_default ??
-		pokemon.sprites.front_shiny ??
+		pokemon.sprites[0].sprites.front_default ??
+		pokemon.sprites[0].sprites.front_shiny ??
 		null;
+
+	console.log(pokemon.sprites);
 
 	return (
 		<Link href={`/pokemon/${pokemon.id}`}>

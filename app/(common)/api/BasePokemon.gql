@@ -1,0 +1,14 @@
+fragment BasePokemon on pokemon {
+  sprites: pokemonsprites {
+    sprites
+  }
+  name
+  id
+  types: pokemontypes {
+    slot
+    type {
+      name
+      id
+    }
+  }
+}
