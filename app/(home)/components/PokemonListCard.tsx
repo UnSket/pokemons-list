@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PokemonListItem } from "../api/fetchPokemonList";
+import { BasePokemonNormalized } from "@/app/(common)/api/gql/basePokemon";
 
 interface PokemonListCardProps {
-	pokemon: PokemonListItem;
+	pokemon: BasePokemonNormalized;
 }
 
 export function PokemonListCard({ pokemon }: PokemonListCardProps) {
 	const imageUrl =
-		pokemon.sprites[0].sprites.front_default ??
-		pokemon.sprites[0].sprites.front_shiny ??
+		pokemon.sprites?.front_default ??
+		pokemon.sprites?.front_shiny ??
 		null;
 
 	console.log(pokemon.sprites);
@@ -48,10 +48,10 @@ export function PokemonListCard({ pokemon }: PokemonListCardProps) {
 						<div className="flex flex-wrap justify-center gap-1.5">
 							{pokemon.types.map((t) => (
 								<span
-									key={t.type.name}
+									key={t.type?.name}
 									className="px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200"
 								>
-									{t.type.name}
+									{t.type?.name}
 								</span>
 							))}
 						</div>

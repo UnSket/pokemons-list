@@ -1,4 +1,4 @@
-import { PokemonApi } from "../api/fetchPokemon";
+import { PokemonNormalized } from "../api/gql/getPokemon";
 import Image from "next/image";
 
 const statLabel: Record<string, string> = {
@@ -10,13 +10,11 @@ const statLabel: Record<string, string> = {
 	speed: "Скорость",
 };
 
-export function PokemonCard({ pokemon }: { pokemon: PokemonApi }) {
+export function PokemonCard({ pokemon }: { pokemon: PokemonNormalized }) {
 	const imageUrl = 
-		pokemon.sprites[0].sprites.front_default ?? 
-		pokemon.sprites[0].sprites.front_shiny ?? 
+		pokemon.sprites?.front_default ?? 
+		pokemon.sprites?.front_shiny ?? 
 		null;
-
-	console.log(pokemon);
 
 	return (
 		<article className="rounded-2xl bg-white dark:bg-zinc-800 shadow-xl overflow-hidden border border-zinc-200 dark:border-zinc-700">
@@ -55,10 +53,10 @@ export function PokemonCard({ pokemon }: { pokemon: PokemonApi }) {
 					<div className="flex flex-wrap justify-center gap-2 mt-3">
 						{pokemon.types.map((t) => (
 							<span
-								key={t.type?.name}
+								key={t.type.name}
 								className="px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200"
 							>
-								{t.type?.name}
+								{t.type.name}
 							</span>
 						))}
 					</div>
@@ -71,9 +69,9 @@ export function PokemonCard({ pokemon }: { pokemon: PokemonApi }) {
 					</h2>
 					<ul className="space-y-2">
 						{pokemon.stats.map((s) => (
-							<li key={s.stat?.name} className="flex items-center gap-3">
+							<li key={s.stat.name} className="flex items-center gap-3">
 								<span className="w-28 text-sm text-zinc-600 dark:text-zinc-400 shrink-0">
-									{statLabel[s.stat?.name ?? ""] ?? s.stat?.name ?? ""}
+									{statLabel[s.stat.name] ?? s.stat.name ?? ""}
 								</span>
 								<div className="flex-1 h-2 bg-zinc-200 dark:bg-zinc-700 rounded-full overflow-hidden">
 									<div
@@ -98,10 +96,10 @@ export function PokemonCard({ pokemon }: { pokemon: PokemonApi }) {
 						<div className="flex flex-wrap gap-2">
 							{pokemon.abilities.map((a) => (
 								<span
-									key={a.ability?.name}
+									key={a.ability.name}
 									className="px-3 py-1.5 rounded-lg text-sm bg-zinc-100 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200 capitalize"
 								>
-									{a.ability?.name.replace(/-/g, " ")}
+									{a.ability.name.replace(/-/g, " ")}
 								</span>
 							))}
 						</div>

@@ -1,0 +1,2 @@
+export { getPokemonListNormalizer, type GetPokemonListNormalized } from './getPokemonListNormalizer';
+export { type GetPokemonListQueryVariables, type GetPokemonListQuery, GetPokemonListDocument } from './GetPokemonList.generated';
