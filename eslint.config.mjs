@@ -8,6 +8,7 @@ const eslintConfig = defineConfig([
 	{
 		rules: {
 			indent: ["error", "tab", { SwitchCase: 1 }],
+			'preserve-manual-memoization': 'warn',
 		},
 	},
 	// Override default ignores of eslint-config-next.

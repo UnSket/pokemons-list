@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BasePokemonNormalized } from "@/app/(common)/api/gql/basePokemon";
+import { BasePokemonNormalized } from "@/app/(common)";
 
 interface PokemonListCardProps {
 	pokemon: BasePokemonNormalized;

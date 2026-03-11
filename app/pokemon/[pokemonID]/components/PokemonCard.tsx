@@ -1,4 +1,7 @@
-import { PokemonNormalized } from "../api/gql/getPokemon";
+'use client';
+
+import { useNormalizedQuery } from "@/app/(common)";
+import { GetPokemonDocument, getPokemonNormalizer, PokemonNormalized } from "../api/gql/getPokemon";
 import Image from "next/image";
 
 const statLabel: Record<string, string> = {
@@ -11,6 +14,18 @@ const statLabel: Record<string, string> = {
 };
 
 export function PokemonCard({ pokemon }: { pokemon: PokemonNormalized }) {
+	const clientPokemon = useNormalizedQuery({
+		query: GetPokemonDocument, 
+		options: {
+			variables: {
+				id: pokemon.id,
+			},
+		},
+		selector: getPokemonNormalizer
+	});
+
+	console.log('pokemon', clientPokemon);
+	
 	const imageUrl = 
 		pokemon.sprites?.front_default ?? 
 		pokemon.sprites?.front_shiny ?? 

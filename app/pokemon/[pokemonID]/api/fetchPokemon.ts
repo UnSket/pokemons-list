@@ -14,8 +14,8 @@ export async function fetchPokemon(pokemonID: string): Promise<PokemonNormalized
 		query: GetPokemonDocument,
 		variables: { id },
 	});
-	const pokemon = data?.pokemon?.[0];
-	if (!pokemon) throw new Error("Pokemon not found");
 
-	return getPokemonNormalizer(pokemon);
+	if (!data) throw new Error("Pokemon not found");
+
+	return getPokemonNormalizer(data);
 }

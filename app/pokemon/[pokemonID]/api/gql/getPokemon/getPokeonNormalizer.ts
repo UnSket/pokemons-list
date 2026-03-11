@@ -1,4 +1,4 @@
-import { BasePokemonNormalized, basePokemonNormalizer } from "@/app/(common)/api/gql/basePokemon/basePokemonNormalizer";
+import { BasePokemonNormalized, basePokemonNormalizer } from "@/app/(common)";
 import { GetPokemonQuery } from "./GetPokemon.generated";
 
 export interface PokemonNormalized extends BasePokemonNormalized {
@@ -15,7 +15,10 @@ export interface PokemonNormalized extends BasePokemonNormalized {
 	}>;
 }
 
-export const getPokemonNormalizer = (pokemon: GetPokemonQuery["pokemon"][number]): PokemonNormalized => {
+export const getPokemonNormalizer = (data: GetPokemonQuery): PokemonNormalized => {
+	const pokemon = data.pokemon[0];
+	if (!pokemon) throw new Error("Pokemon not found");
+	
 	const basePokemon = basePokemonNormalizer(pokemon);
     
 	return {

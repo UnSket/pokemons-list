@@ -1,4 +1,4 @@
-import { BasePokemonNormalized, basePokemonNormalizer } from "@/app/(common)/api/gql/basePokemon";
+import { BasePokemonNormalized, basePokemonNormalizer } from "@/app/(common)";
 import { GetPokemonListQuery } from "./GetPokemonList.generated";
 
 export interface GetPokemonListNormalized {
