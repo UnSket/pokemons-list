@@ -1,4 +1,4 @@
-import createApolloClient from "@/appolo-client";
+import createApolloClient from "@/apollo/appolo-client";
 import {
 	GetPokemonDocument,
 	type GetPokemonQuery,

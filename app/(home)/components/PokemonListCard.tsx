@@ -12,8 +12,6 @@ export function PokemonListCard({ pokemon }: PokemonListCardProps) {
 		pokemon.sprites?.front_shiny ??
 		null;
 
-	console.log(pokemon.sprites);
-
 	return (
 		<Link href={`/pokemon/${pokemon.id}`}>
 			<article className="rounded-xl bg-white dark:bg-zinc-800 shadow-md overflow-hidden border border-zinc-200 dark:border-zinc-700 transition-shadow transition-transform hover:shadow-lg hover:scale-105">
